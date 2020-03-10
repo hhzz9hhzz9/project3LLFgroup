@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<properties resource="db.properties"></properties>
+	<typeAliases>
+		<package name="com.woniu.pojo"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			 <dataSource type="POOLED">
+			 	<property name="driver" value="${driver}"/>
+			 	<property name="url" value="${url}"/>
+			 	<property name="username" value="${username}"/>
+			 	<property name="password" value="${password}"/>
+			 </dataSource>
+		</environment>
+	</environments>
+	<!--  <mappers>
+		<mapper resource="com/woniu/mapper/customerMapper.xml"/>
+		<mapper resource="com/woniu/mapper/employeeMapper.xml"/>
+		<mapper resource="com/woniu/mapper/goodsMapper.xml"/>
+		<mapper resource="com/woniu/mapper/instockMapper.xml"/>
+		<mapper resource="com/woniu/mapper/ordersdetailMapper.xml"/>
+		<mapper resource="com/woniu/mapper/ordersMapper.xml"/>
+		<mapper resource="com/woniu/mapper/outstockMapper.xml"/>
+		<mapper resource="com/woniu/mapper/shoppingsMapper.xml"/>
+		<mapper resource="com/woniu/mapper/suppliersMapper.xml"/>
+		<mapper resource="com/woniu/mapper/typeMapper.xml"/>
+	</mappers>-->
+</configuration>

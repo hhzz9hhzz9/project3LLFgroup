@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.mapper.filmMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.pojo.film">
+    <id column="film_id" jdbcType="INTEGER" property="filmId" />
+    <result column="year_id" jdbcType="INTEGER" property="yearId" />
+    <result column="area_id" jdbcType="INTEGER" property="areaId" />
+    <result column="film_name" jdbcType="VARCHAR" property="filmName" />
+    <result column="img_address" jdbcType="VARCHAR" property="imgAddress" />
+    <result column="film_score" jdbcType="REAL" property="filmScore" />
+    <result column="film_status" jdbcType="VARCHAR" property="filmStatus" />
+    <result column="film_length" jdbcType="VARCHAR" property="filmLength" />
+    <result column="director_id" jdbcType="INTEGER" property="directorId" />
+    <result column="film_hot" jdbcType="INTEGER" property="filmHot" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    film_id, year_id, area_id, film_name, img_address, film_score, film_status, film_length, 
+    director_id, film_hot
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.pojo.filmExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from film
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0">
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from film
+    where film_id = #{filmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from film
+    where film_id = #{filmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.woniu.pojo.film">
+    insert into film (film_id, year_id, area_id, 
+      film_name, img_address, film_score, 
+      film_status, film_length, director_id, 
+      film_hot)
+    values (#{filmId,jdbcType=INTEGER}, #{yearId,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
+      #{filmName,jdbcType=VARCHAR}, #{imgAddress,jdbcType=VARCHAR}, #{filmScore,jdbcType=REAL}, 
+      #{filmStatus,jdbcType=VARCHAR}, #{filmLength,jdbcType=VARCHAR}, #{directorId,jdbcType=INTEGER}, 
+      #{filmHot,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.pojo.film">
+    insert into film
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="filmId != null">
+        film_id,
+      </if>
+      <if test="yearId != null">
+        year_id,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="filmName != null">
+        film_name,
+      </if>
+      <if test="imgAddress != null">
+        img_address,
+      </if>
+      <if test="filmScore != null">
+        film_score,
+      </if>
+      <if test="filmStatus != null">
+        film_status,
+      </if>
+      <if test="filmLength != null">
+        film_length,
+      </if>
+      <if test="directorId != null">
+        director_id,
+      </if>
+      <if test="filmHot != null">
+        film_hot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="filmId != null">
+        #{filmId,jdbcType=INTEGER},
+      </if>
+      <if test="yearId != null">
+        #{yearId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="filmName != null">
+        #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgAddress != null">
+        #{imgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="filmScore != null">
+        #{filmScore,jdbcType=REAL},
+      </if>
+      <if test="filmStatus != null">
+        #{filmStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="filmLength != null">
+        #{filmLength,jdbcType=VARCHAR},
+      </if>
+      <if test="directorId != null">
+        #{directorId,jdbcType=INTEGER},
+      </if>
+      <if test="filmHot != null">
+        #{filmHot,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.pojo.filmExample" resultType="java.lang.Long">
+    select count(*) from film
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.pojo.film">
+    update film
+    <set>
+      <if test="yearId != null">
+        year_id = #{yearId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="filmName != null">
+        film_name = #{filmName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgAddress != null">
+        img_address = #{imgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="filmScore != null">
+        film_score = #{filmScore,jdbcType=REAL},
+      </if>
+      <if test="filmStatus != null">
+        film_status = #{filmStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="filmLength != null">
+        film_length = #{filmLength,jdbcType=VARCHAR},
+      </if>
+      <if test="directorId != null">
+        director_id = #{directorId,jdbcType=INTEGER},
+      </if>
+      <if test="filmHot != null">
+        film_hot = #{filmHot,jdbcType=INTEGER},
+      </if>
+    </set>
+    where film_id = #{filmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.pojo.film">
+    update film
+    set year_id = #{yearId,jdbcType=INTEGER},
+      area_id = #{areaId,jdbcType=INTEGER},
+      film_name = #{filmName,jdbcType=VARCHAR},
+      img_address = #{imgAddress,jdbcType=VARCHAR},
+      film_score = #{filmScore,jdbcType=REAL},
+      film_status = #{filmStatus,jdbcType=VARCHAR},
+      film_length = #{filmLength,jdbcType=VARCHAR},
+      director_id = #{directorId,jdbcType=INTEGER},
+      film_hot = #{filmHot,jdbcType=INTEGER}
+    where film_id = #{filmId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniu.mapper.actorMapper">
+  <resultMap id="BaseResultMap" type="com.woniu.pojo.actor">
+    <id column="actor_id" jdbcType="INTEGER" property="actorId" />
+    <result column="actor_name" jdbcType="VARCHAR" property="actorName" />
+    <result column="actor_desc" jdbcType="VARCHAR" property="actorDesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    actor_id, actor_name, actor_desc
+  </sql>
+  <select id="selectByExample" parameterType="com.woniu.pojo.actorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from actor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0">
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from actor
+    where actor_id = #{actorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from actor
+    where actor_id = #{actorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.woniu.pojo.actor">
+    insert into actor (actor_id, actor_name, actor_desc
+      )
+    values (#{actorId,jdbcType=INTEGER}, #{actorName,jdbcType=VARCHAR}, #{actorDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniu.pojo.actor">
+    insert into actor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actorId != null">
+        actor_id,
+      </if>
+      <if test="actorName != null">
+        actor_name,
+      </if>
+      <if test="actorDesc != null">
+        actor_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actorId != null">
+        #{actorId,jdbcType=INTEGER},
+      </if>
+      <if test="actorName != null">
+        #{actorName,jdbcType=VARCHAR},
+      </if>
+      <if test="actorDesc != null">
+        #{actorDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniu.pojo.actorExample" resultType="java.lang.Long">
+    select count(*) from actor
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniu.pojo.actor">
+    update actor
+    <set>
+      <if test="actorName != null">
+        actor_name = #{actorName,jdbcType=VARCHAR},
+      </if>
+      <if test="actorDesc != null">
+        actor_desc = #{actorDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where actor_id = #{actorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniu.pojo.actor">
+    update actor
+    set actor_name = #{actorName,jdbcType=VARCHAR},
+      actor_desc = #{actorDesc,jdbcType=VARCHAR}
+    where actor_id = #{actorId,jdbcType=INTEGER}
+  </update>
+</mapper>
