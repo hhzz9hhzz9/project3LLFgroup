@@ -19,9 +19,9 @@
 		配置数据源
 	 -->
 	 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-	 	<property name="url" value="jdbc:mysql://localhost:3306/project3LLFgroup?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;rewriteBatchedStatements=true"></property>
+	 	<property name="url" value="jdbc:mysql://localhost:3306/project3LLFgroup?characterEncoding=utf8"></property>
 	 	<property name="username" value="root"></property>
-	 	<property name="password" value="12345678"></property>
+	 	<property name="password" value="root"></property>
 	 </bean>
 	 <!-- 
 	 	SqlSessionFactory

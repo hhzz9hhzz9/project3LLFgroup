@@ -16,7 +16,7 @@ public class userController {
 	@Autowired
 	IusersService usersService;
 
-	@RequestMapping("/user/findAll3")
+	@RequestMapping("/users/findAll3")
 	@ResponseBody
 	public frontMessage findAll3(PageBean<users> pageBean, users users) {
 		System.out.println("usersController.findAll3()========");
@@ -43,7 +43,7 @@ public class userController {
 		return message;
 	}
 
-	@RequestMapping("/user/addUsers")
+	@RequestMapping("/users/addUsers")
 	@ResponseBody
 	public String addUsers(users users) {
 		System.out.println("usersController.addUsers()========");
@@ -57,7 +57,7 @@ public class userController {
 		return mess;
 	}
 
-	@RequestMapping("/user/findUsersById")
+	@RequestMapping("/users/findUsersById")
 	@ResponseBody
 	public users findUsersById(Integer cusid) {
 		System.out.println("usersController.findUsersById()========");
@@ -68,7 +68,7 @@ public class userController {
 		return users;
 	}
 
-	@RequestMapping("/user/editUsers")
+	@RequestMapping("/users/editUsers")
 	@ResponseBody
 	public String editUsers(users users) {
 		System.out.println("usersController.editUsers()========");
@@ -84,7 +84,7 @@ public class userController {
 		return mess;
 	}
 
-	@RequestMapping("/user/delUsersById")
+	@RequestMapping("/users/delUsersById")
 	@ResponseBody
 	public String delUsersById(Integer cusid) {
 		System.out.println("usersController.delUsersById()========");

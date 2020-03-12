@@ -19,7 +19,7 @@ public class speakerController {
 	@Autowired
 	IspeakerService speakerService;
 
-	@RequestMapping("findAll3")
+	@RequestMapping("findAllSpeaker")
 	@ResponseBody
 	public frontMessage findAll3(PageBean<speaker> pageBean,Integer filmId,Integer usersid) {
 		//前端传回来页面信息,以及其他条件进行处理

@@ -40,6 +40,7 @@
 	  	默认servlet(可以访问静态资源)
 	   -->
 	   <mvc:default-servlet-handler/>
+	  
 	   <!-- 
 	   	视图解析器
 	    -->

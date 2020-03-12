@@ -11,8 +11,10 @@ public interface IadminService {
 	void update(admin obj);
 	void delete(Integer no);
 	admin findOne(Integer no);
+	admin findAdminByAccount(String account);
 	List<admin> findAll(adminExample example);
 	admin login(admin obj);
 	List<admin> findbyquery(PageBean<admin> pageBean,admin admin);
 	Integer countAll(admin admin);
+	List<admin> findByPrimissionId(Integer pid);
 }

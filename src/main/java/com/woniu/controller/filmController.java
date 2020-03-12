@@ -21,7 +21,7 @@ public class filmController {
 	@Autowired
 	Ifilm_catsService film_catsService;
 
-	@RequestMapping("findAll3")
+	@RequestMapping("findAllFilm")
 	@ResponseBody
 	public frontMessage findAll3(PageBean<film> pageBean, String filmname,Integer areaid,Integer yearid,Integer catsid) {
 		//前端传回来页面信息，电影名称（模糊查询），电影区域id,电影年份id,电影种类id

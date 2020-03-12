@@ -1,5 +1,6 @@
 package com.woniu.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniu.mapper.adminMapper;
+import com.woniu.mapper.admin_primissionMapper;
+import com.woniu.mapper.primissionMapper;
 import com.woniu.pojo.PageBean;
 import com.woniu.pojo.admin;
 import com.woniu.pojo.adminExample;
+import com.woniu.pojo.admin_primissionExample;
+import com.woniu.pojo.admin_primissionKey;
+import com.woniu.pojo.primission;
+import com.woniu.pojo.primissionExample;
 import com.woniu.pojo.adminExample.Criteria;
 //import com.woniu.pojo.adminExample.Criteria;
 import com.woniu.service.IadminService;
@@ -19,6 +26,10 @@ import com.woniu.service.IadminService;
 public class adminServiceImpl implements IadminService {
 	@Autowired
 	adminMapper adminMapper;
+	@Autowired
+	primissionMapper primissionMapper;
+	@Autowired
+	admin_primissionMapper apm;
 
 	@Override
 	public void save(admin obj) {
@@ -53,8 +64,7 @@ public class adminServiceImpl implements IadminService {
 		criteria.andAccountEqualTo(obj.getAccount());
 		criteria.andPasswordEqualTo(obj.getPassword());
 		List<admin> admins = adminMapper.selectByExample(example);
-//		System.out.println("====================================>??????????"+admins);
-		return admins.get(0);
+		return admins.isEmpty()?null:admins.get(0);
 	}
 
 	@Override
@@ -86,5 +96,30 @@ public class adminServiceImpl implements IadminService {
 		Long countRows= adminMapper.countByExample(example);
 		Integer countRow=countRows.intValue();
 		return countRow;
+	}
+
+	@Override
+	public admin findAdminByAccount(String account) {
+		admin admin = adminMapper.selectByAccount(account);
+		return admin;
+	}
+	//传入权限编号，查询拥有该权限的管理员
+	@Override
+	public List<admin> findByPrimissionId(Integer pid) {
+		admin_primissionExample ape = new admin_primissionExample();
+		com.woniu.pojo.admin_primissionExample.Criteria apc = ape.createCriteria();
+		apc.andPrimissionIdEqualTo(pid);
+		List<admin_primissionKey> ap= apm.selectByExample(ape);
+		List<Integer> ids = new ArrayList<Integer>();
+		for (admin_primissionKey apid : ap) {
+			ids.add(apid.getAdminId());
+		}
+		adminExample example = new adminExample();
+		if (ap != null) {
+			com.woniu.pojo.adminExample.Criteria criteria = example.createCriteria();
+			criteria.andAdminIdIn(ids);
+		}
+		List<admin> admin = adminMapper.selectByExample(example);
+		return admin;
 	}
 }

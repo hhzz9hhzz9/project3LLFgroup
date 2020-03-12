@@ -8,40 +8,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniu.pojo.frontMessage;
-import com.woniu.pojo.users;
-import com.woniu.service.IusersService;
+import com.woniu.pojo.admin;
+import com.woniu.service.IadminService;
 
 //@RequestMapping("dept")
 @Controller
 public class LoginController {
 	@Autowired
-	IusersService usersService;
+	IadminService adminService;
 
 	@ResponseBody
-	@RequestMapping("loginAjax")
-	public Object loginAjax(users users, HttpSession session) {
-		System.out.println("loginAjax+++++++++++++++++++" + users);
+	@RequestMapping("backloginAjax")
+	public Object loginAjax(admin admin, HttpSession session) {
 		frontMessage message = new frontMessage();
-		users Loginusers = usersService.login(users);
-		if (Loginusers != null) {
+		admin Loginadmin = adminService.login(admin);
+		System.out.println(Loginadmin+"--------------------");
+		if (Loginadmin != null) {
 			message.setFlag(true);
 		} else {
 			message.setFlag(false);
 		}
+		System.out.println(message);
 		return message;
 	}
 
-	@RequestMapping("logout")
+	@RequestMapping("backlogout")
 	public String logout(HttpSession session) {
 		// 登录用户退出登录 session.removeAttribute("loginUser");移除session中的某个数据
 		// session.removeAttribute("loginUser");
 		// 清除session中的所有数据
 		session.invalidate();
-		return "redirect:login";
+		return "redirect:backlogin";
 	}
 
-	@RequestMapping("login")
+	@RequestMapping("backlogin")
 	public String login() {
-		return "login";
+		return "backlogin";
 	}
 }

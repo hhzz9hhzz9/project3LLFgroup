@@ -16,6 +16,8 @@ public interface adminMapper {
     List<admin> selectByExample(adminExample example);
 
     admin selectByPrimaryKey(Integer adminId);
+    
+    admin selectByAccount(String account);
 
     int updateByPrimaryKeySelective(admin record);
 
